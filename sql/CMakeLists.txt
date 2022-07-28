@@ -51,14 +51,14 @@ ELSE()
 ENDIF()
 
 INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}/include
-${CMAKE_SOURCE_DIR}/sql
+${CMAKE_CURRENT_SOURCE_DIR}/include
+${CMAKE_CURRENT_SOURCE_DIR}/sql
 ${LIBFMT_INCLUDE_DIR}
 ${PCRE_INCLUDES}
 ${ZLIB_INCLUDE_DIR}
 ${SSL_INCLUDE_DIRS}
-${CMAKE_BINARY_DIR}/sql
-${CMAKE_SOURCE_DIR}/tpool
+${CMAKE_CURRENT_BINARY_DIR}/sql
+${CMAKE_CURRENT_SOURCE_DIR}/tpool
 )
 
 ADD_CUSTOM_COMMAND(
@@ -406,14 +406,14 @@ IF(WIN32 OR HAVE_DLOPEN AND NOT DISABLE_SHARED)
 ENDIF()
 
 CONFIGURE_FILE(
-  ${CMAKE_SOURCE_DIR}/cmake/make_dist.cmake.in
-  ${CMAKE_BINARY_DIR}/make_dist.cmake @ONLY)
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/make_dist.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/make_dist.cmake @ONLY)
 
 ADD_CUSTOM_TARGET(dist
-  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_BINARY_DIR}/make_dist.cmake
-  DEPENDS ${CMAKE_BINARY_DIR}/sql/yy_mariadb.cc ${CMAKE_BINARY_DIR}/sql/yy_mariadb.hh
-  DEPENDS ${CMAKE_BINARY_DIR}/sql/yy_oracle.cc ${CMAKE_BINARY_DIR}/sql/yy_oracle.hh
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/make_dist.cmake
+  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/sql/yy_mariadb.cc ${CMAKE_CURRENT_BINARY_DIR}/sql/yy_mariadb.hh
+  DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/sql/yy_oracle.cc ${CMAKE_CURRENT_BINARY_DIR}/sql/yy_oracle.hh
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 ADD_CUSTOM_TARGET(distclean
@@ -434,11 +434,11 @@ IF(TARGET mariadbd AND (NOT CMAKE_CROSSCOMPILING OR DEFINED CMAKE_CROSSCOMPILING
      COMMAND ${CMAKE_COMMAND} -E make_directory data
      COMMAND ${CMAKE_COMMAND} -E chdir data ${CMAKE_COMMAND}
      ${CONFIG_PARAM}
-     -DTOP_SRCDIR="${CMAKE_BINARY_DIR}"
+     -DTOP_SRCDIR="${CMAKE_CURRENT_BINARY_DIR}"
      -DBINDIR="${CMAKE_CURRENT_BINARY_DIR}"
      -DMYSQLD_EXECUTABLE="$<TARGET_FILE:mariadbd>"
      -DCMAKE_CFG_INTDIR="${CMAKE_CFG_INTDIR}"
-     -P ${CMAKE_SOURCE_DIR}/cmake/create_initial_db.cmake
+     -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/create_initial_db.cmake
      COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/initdb.dep
      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/
      DEPENDS mariadbd
@@ -461,15 +461,15 @@ IF(WIN32)
   # Create bootstrapper SQL script
   ADD_CUSTOM_COMMAND(OUTPUT
     ${my_bootstrap_sql}
-    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/scripts
+    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_CURRENT_BINARY_DIR}/scripts
     cmd /c copy mysql_system_tables.sql+mysql_system_tables_data.sql+fill_help_tables.sql+mysql_performance_tables.sql+mysql_test_db.sql+mysql_sys_schema.sql ${native_outfile}
     DEPENDS
-    ${CMAKE_SOURCE_DIR}/scripts/mysql_system_tables.sql
-    ${CMAKE_SOURCE_DIR}/scripts/mysql_system_tables_data.sql
-    ${CMAKE_SOURCE_DIR}/scripts/fill_help_tables.sql
-    ${CMAKE_SOURCE_DIR}/scripts/mysql_performance_tables.sql
-    ${CMAKE_SOURCE_DIR}/scripts/mysql_test_db.sql
-    ${CMAKE_BINARY_DIR}/scripts/mysql_sys_schema.sql
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts/mysql_system_tables.sql
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts/mysql_system_tables_data.sql
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts/fill_help_tables.sql
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts/mysql_performance_tables.sql
+    ${CMAKE_CURRENT_SOURCE_DIR}/scripts/mysql_test_db.sql
+    ${CMAKE_CURRENT_BINARY_DIR}/scripts/mysql_sys_schema.sql
   )
 
   ADD_CUSTOM_COMMAND(

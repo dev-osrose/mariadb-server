@@ -20,13 +20,13 @@
 # along with this program; if not, write to the Free Software Foundation,
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335 USA
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include
-                    ${CMAKE_SOURCE_DIR}/include/mysql
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include
+                    ${CMAKE_CURRENT_SOURCE_DIR}/include/mysql
                     ${PCRE_INCLUDES}
-                    ${CMAKE_SOURCE_DIR}/sql
+                    ${CMAKE_CURRENT_SOURCE_DIR}/sql
                     ${SSL_INCLUDE_DIRS}
-                    ${CMAKE_SOURCE_DIR}/unittest/mytap
-                    ${CMAKE_SOURCE_DIR}/storage/perfschema)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/unittest/mytap
+                    ${CMAKE_CURRENT_SOURCE_DIR}/storage/perfschema)
 
 ADD_DEFINITIONS(-DMYSQL_SERVER ${SSL_DEFINES})
 

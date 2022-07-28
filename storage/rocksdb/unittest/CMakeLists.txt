@@ -1,7 +1,7 @@
 IF (TARGET rocksdb)
-  INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/zlib
-                      ${CMAKE_SOURCE_DIR}/unittest/mytap
-    ${CMAKE_SOURCE_DIR}/rocksdb/third-party/gtest-1.7.0/fused-src
+  INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/zlib
+                      ${CMAKE_CURRENT_SOURCE_DIR}/unittest/mytap
+    ${CMAKE_CURRENT_SOURCE_DIR}/rocksdb/third-party/gtest-1.7.0/fused-src
   )
   LINK_LIBRARIES(mytap mysys dbug strings)
 

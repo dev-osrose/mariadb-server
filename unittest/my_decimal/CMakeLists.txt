@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335 USA
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include
-                    ${CMAKE_SOURCE_DIR}/sql
-                    ${CMAKE_SOURCE_DIR}/regex
-                    ${CMAKE_SOURCE_DIR}/unittest/mytap)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include
+                    ${CMAKE_CURRENT_SOURCE_DIR}/sql
+                    ${CMAKE_CURRENT_SOURCE_DIR}/regex
+                    ${CMAKE_CURRENT_SOURCE_DIR}/unittest/mytap)
 
 #
 MY_ADD_TESTS(my_decimal EXT "cc" LINK_LIBRARIES strings dbug)

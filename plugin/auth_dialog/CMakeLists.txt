@@ -16,5 +16,5 @@
 
 # disabled in favor of libmariadb/plugins/auth/dialog.c
 #
-#MYSQL_ADD_PLUGIN(dialog dialog.c ${CMAKE_SOURCE_DIR}/libmysql/get_password.c
+#MYSQL_ADD_PLUGIN(dialog dialog.c ${CMAKE_CURRENT_SOURCE_DIR}/libmysql/get_password.c
 #  MODULE_ONLY CLIENT COMPONENT ClientPlugins)

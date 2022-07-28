@@ -19,7 +19,7 @@ endmacro()
 
 # don't use compression providers, there are standalone executables below
 GET_PROPERTY(dirs DIRECTORY PROPERTY INCLUDE_DIRECTORIES)
-LIST(REMOVE_ITEM dirs ${CMAKE_SOURCE_DIR}/include/providers)
+LIST(REMOVE_ITEM dirs ${CMAKE_CURRENT_SOURCE_DIR}/include/providers)
 SET_PROPERTY(DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${dirs}")
 
 IF(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64" OR

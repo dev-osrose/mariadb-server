@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1335 USA
 
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include
-                    ${CMAKE_SOURCE_DIR}/unittest/mytap
-                    ${CMAKE_SOURCE_DIR}/storage/innobase/include
-                    ${CMAKE_SOURCE_DIR}/tpool)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/include
+                    ${CMAKE_CURRENT_SOURCE_DIR}/unittest/mytap
+                    ${CMAKE_CURRENT_SOURCE_DIR}/storage/innobase/include
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tpool)
 ADD_EXECUTABLE(innodb_fts-t innodb_fts-t.cc)
 TARGET_LINK_LIBRARIES(innodb_fts-t mysys mytap)
 ADD_DEPENDENCIES(innodb_fts-t GenError)

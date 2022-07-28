@@ -94,7 +94,7 @@ SET(CPACK_PACKAGE_URL "http://mariadb.org")
 
 IF(BUILD_CONFIG)
   INCLUDE(
-  ${CMAKE_SOURCE_DIR}/cmake/build_configurations/${BUILD_CONFIG}.cmake)
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/build_configurations/${BUILD_CONFIG}.cmake)
 ENDIF()
 
 # Include the platform-specific file. To allow exceptions, this code
@@ -107,7 +107,7 @@ FOREACH(_base
     ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}-${CMAKE_SYSTEM_PROCESSOR}
     ${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_VERSION}
     ${CMAKE_SYSTEM_NAME})
-  SET(_file ${CMAKE_SOURCE_DIR}/cmake/os/${_base}.cmake)
+  SET(_file ${CMAKE_CURRENT_SOURCE_DIR}/cmake/os/${_base}.cmake)
   IF(EXISTS ${_file})
     INCLUDE(${_file})
     BREAK()
@@ -378,7 +378,7 @@ IF(_FILE_OFFSET_BITS)
   ADD_DEFINITIONS(-D_FILE_OFFSET_BITS=${_FILE_OFFSET_BITS})
 ENDIF()
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR}/include
-                    ${CMAKE_SOURCE_DIR}/include/providers)
+                    ${CMAKE_CURRENT_SOURCE_DIR}/include/providers)
 
 # Add bundled or system zlib.
 MYSQL_CHECK_ZLIB_WITH_COMPRESS()
@@ -487,15 +487,15 @@ IF(NOT CMAKE_CROSSCOMPILING OR DEFINED CMAKE_CROSSCOMPILING_EMULATOR)
   ENDIF()
   # minimal target to build only binaries for export
   ADD_CUSTOM_TARGET(import_executables DEPENDS ${EXPORTED})
-  EXPORT(TARGETS ${EXPORTED} FILE ${CMAKE_BINARY_DIR}/import_executables.cmake)
+  EXPORT(TARGETS ${EXPORTED} FILE ${CMAKE_CURRENT_BINARY_DIR}/import_executables.cmake)
 ENDIF()
 
-CONFIGURE_FILE(config.h.cmake   ${CMAKE_BINARY_DIR}/include/my_config.h)
-CONFIGURE_FILE(config.h.cmake   ${CMAKE_BINARY_DIR}/include/config.h)
-CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/include/mysql_version.h.in
-               ${CMAKE_BINARY_DIR}/include/mysql_version.h )
-CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/sql/sql_builtin.cc.in
-    ${CMAKE_BINARY_DIR}/sql/sql_builtin.cc)
+CONFIGURE_FILE(config.h.cmake   ${CMAKE_CURRENT_BINARY_DIR}/include/my_config.h)
+CONFIGURE_FILE(config.h.cmake   ${CMAKE_CURRENT_BINARY_DIR}/include/config.h)
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/include/mysql_version.h.in
+               ${CMAKE_CURRENT_BINARY_DIR}/include/mysql_version.h )
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/sql/sql_builtin.cc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/sql/sql_builtin.cc)
 
 IF(GIT_EXECUTABLE AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
   EXECUTE_PROCESS(
@@ -513,30 +513,30 @@ IF(SOURCE_REVISION OR
 ENDIF()
 
 CONFIGURE_FILE(
-    ${CMAKE_SOURCE_DIR}/cmake/info_macros.cmake.in
-    ${CMAKE_BINARY_DIR}/info_macros.cmake @ONLY)
+    ${CMAKE_CURRENT_SOURCE_DIR}/cmake/info_macros.cmake.in
+    ${CMAKE_CURRENT_BINARY_DIR}/info_macros.cmake @ONLY)
 
 # Handle the "INFO_*" files.
-INCLUDE(${CMAKE_BINARY_DIR}/info_macros.cmake)
+INCLUDE(${CMAKE_CURRENT_BINARY_DIR}/info_macros.cmake)
 # Source: This can be done during the cmake phase, all information is
 # available, but should be repeated on each "make" just in case someone
 # does "cmake ; make ; git pull ; make".
-CREATE_INFO_SRC(${CMAKE_BINARY_DIR}/Docs)
+CREATE_INFO_SRC(${CMAKE_CURRENT_BINARY_DIR}/Docs)
 ADD_CUSTOM_TARGET(INFO_SRC ALL
-  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/cmake/info_src.cmake
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/info_src.cmake
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 # Build flags: This must be postponed to the make phase.
 ADD_CUSTOM_TARGET(INFO_BIN ALL
-  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/cmake/info_bin.cmake
-  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/info_bin.cmake
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 )
 
 INSTALL_DOCUMENTATION(README.md CREDITS COPYING THIRDPARTY COMPONENT Readme)
 
 # MDEV-6526 these files are not installed anymore
-#INSTALL_DOCUMENTATION(${CMAKE_BINARY_DIR}/Docs/INFO_SRC
-#                      ${CMAKE_BINARY_DIR}/Docs/INFO_BIN)
+#INSTALL_DOCUMENTATION(${CMAKE_CURRENT_BINARY_DIR}/Docs/INFO_SRC
+#                      ${CMAKE_CURRENT_BINARY_DIR}/Docs/INFO_BIN)
 
 IF(UNIX)
   INSTALL_DOCUMENTATION(Docs/INSTALL-BINARY Docs/README-wsrep COMPONENT Readme)
@@ -599,6 +599,6 @@ IF(NOT WITHOUT_SERVER)
   ENDIF()
   ADD_CUSTOM_TARGET(smoketest
     COMMAND perl ./mysql-test-run.pl main.1st
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/mysql-test)
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/mysql-test)
   ADD_DEPENDENCIES(smoketest minbuild)
 ENDIF()

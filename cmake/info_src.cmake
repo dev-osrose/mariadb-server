@@ -24,8 +24,8 @@
 
 
 # Get the macros which handle the "INFO_*" files.
-INCLUDE(${CMAKE_BINARY_DIR}/info_macros.cmake)
+INCLUDE(${CMAKE_CURRENT_BINARY_DIR}/info_macros.cmake)
 
 # Here is where the action is.
-CREATE_INFO_SRC(${CMAKE_BINARY_DIR}/Docs)
+CREATE_INFO_SRC(${CMAKE_CURRENT_BINARY_DIR}/Docs)
 

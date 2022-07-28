@@ -24,7 +24,7 @@ SET(DOT_FRM_VERSION "6")
 # Generate "something" to trigger cmake rerun when VERSION changes
 CONFIGURE_FILE(
   ${CMAKE_CURRENT_SOURCE_DIR}/VERSION
-  ${CMAKE_BINARY_DIR}/VERSION.dep
+  ${CMAKE_CURRENT_BINARY_DIR}/VERSION.dep
 )
 
 # Read value for a variable from VERSION.
@@ -127,17 +127,17 @@ IF(MSVC)
 
     SET(FILETYPE VFT_APP)
     CONFIGURE_FILE(${MYSQL_CMAKE_SCRIPT_DIR}/versioninfo.rc.in 
-    ${CMAKE_BINARY_DIR}/versioninfo_exe.rc)
+    ${CMAKE_CURRENT_BINARY_DIR}/versioninfo_exe.rc)
 
     SET(FILETYPE VFT_DLL)
     CONFIGURE_FILE(${MYSQL_CMAKE_SCRIPT_DIR}/versioninfo.rc.in  
-      ${CMAKE_BINARY_DIR}/versioninfo_dll.rc)
+      ${CMAKE_CURRENT_BINARY_DIR}/versioninfo_dll.rc)
 
   FUNCTION(ADD_VERSION_INFO target target_type sources_var)
     IF("${target_type}" MATCHES "SHARED" OR "${target_type}" MATCHES "MODULE")
-      SET(rcfile ${CMAKE_BINARY_DIR}/versioninfo_dll.rc)
+      SET(rcfile ${CMAKE_CURRENT_BINARY_DIR}/versioninfo_dll.rc)
     ELSEIF("${target_type}" MATCHES "EXE")
-      SET(rcfile ${CMAKE_BINARY_DIR}/versioninfo_exe.rc)
+      SET(rcfile ${CMAKE_CURRENT_BINARY_DIR}/versioninfo_exe.rc)
     ENDIF()
     SET(${sources_var} ${${sources_var}} ${rcfile} PARENT_SCOPE)
   ENDFUNCTION()

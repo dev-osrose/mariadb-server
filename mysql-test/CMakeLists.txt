@@ -16,7 +16,7 @@
 
 INSTALL_MYSQL_TEST("." ".")
 
-IF(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
+IF(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_BINARY_DIR})
   # Enable running mtr from build directory
   CONFIGURE_FILE(
     ${CMAKE_CURRENT_SOURCE_DIR}/mtr.out-of-source
@@ -106,7 +106,7 @@ ENDIF()
 
 
 SET(MTR_FORCE perl ./mysql-test-run.pl --force)
-IF(EXISTS ${CMAKE_SOURCE_DIR}/mysql-test/suite/nist)
+IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/mysql-test/suite/nist)
   SET(TEST_NIST ${MTR_FORCE} --comment=nist suite=nist ${EXP} && 
     ${MTR_FORCE} --comment=nist --force --suite=nist+ps ${EXP})
 ELSE()

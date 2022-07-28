@@ -5,7 +5,7 @@ SET(WITH_LIBFMT "auto" CACHE STRING
    "Which libfmt to use (possible values are 'bundled', 'system', or 'auto')")
 
 MACRO(BUNDLE_LIBFMT)
-  SET(dir "${CMAKE_BINARY_DIR}/extra/libfmt")
+  SET(dir "${CMAKE_CURRENT_BINARY_DIR}/extra/libfmt")
   SET(LIBFMT_INCLUDE_DIR "${dir}/src/libfmt/include")
 
   IF(CMAKE_VERSION VERSION_GREATER "3.0")

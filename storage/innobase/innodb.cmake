@@ -116,8 +116,8 @@ ENDIF()
 CHECK_FUNCTION_EXISTS(vasprintf  HAVE_VASPRINTF)
 
 # Include directories under innobase
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/storage/innobase/include
-		    ${CMAKE_SOURCE_DIR}/storage/innobase/handler)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/storage/innobase/include
+		    ${CMAKE_CURRENT_SOURCE_DIR}/storage/innobase/handler)
 
 # Sun Studio bug with -xO2
 IF(CMAKE_CXX_COMPILER_ID MATCHES "SunPro"
@@ -140,6 +140,6 @@ IF(MSVC)
 ENDIF()
 
 # Include directories under innobase
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/storage/innobase/include
-                    ${CMAKE_SOURCE_DIR}/storage/innobase/handler
-                    ${CMAKE_SOURCE_DIR}/libbinlogevents/include )
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/storage/innobase/include
+                    ${CMAKE_CURRENT_SOURCE_DIR}/storage/innobase/handler
+                    ${CMAKE_CURRENT_SOURCE_DIR}/libbinlogevents/include )
